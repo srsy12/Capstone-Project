@@ -43,4 +43,4 @@ Our mission is to help people fund their ideas when they may not otherwise have 
 * Users can view the results of their search.
 
 ## Schema
-![Fetch Schema](https://github.com/srsy12/Capstone-Project/assets/107436602/342dd5a2-be3b-4c9a-942e-00ae66973dd0)
+![Fetch Schema (1)](https://github.com/srsy12/Capstone-Project/assets/107436602/f2fd1f2f-530c-4741-a69f-1a3da685802f)
