@@ -38,7 +38,7 @@ Our mission is to help people fund their ideas when they may not otherwise have 
 * Logged in users should be able to cancel their backing of a project before the funding deadline.
 * Logged in users should be able to view a history of all projects they have backed.
 
-## 5. Search
+## 6. Search
 * Users should be able to create a search for projects by category or name.
 * Users can view the results of their search.
 
