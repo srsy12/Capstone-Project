@@ -42,7 +42,7 @@ def upgrade():
         sa.Column("campaign_id", sa.Integer(), nullable=True),
         sa.Column("name", sa.String(), nullable=False),
         sa.Column("price", sa.Integer(), nullable=False),
-        sa.Column("rewards", sa.Text(), nullable=False),
+        sa.Column("description", sa.Text(), nullable=False),
         sa.ForeignKeyConstraint(
             ["campaign_id"],
             ["campaigns.id"],
