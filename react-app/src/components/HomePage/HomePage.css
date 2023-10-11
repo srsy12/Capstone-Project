@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.home-page-content {
+    margin-top: 50px;
+    width: 100%;
+    left: 0;
+    right: 0;
+}
+
+
+.fetch-name-home {
+    color: white;
+    background-color: black;
+    height: 100vh;
+    width: 100%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 90vh;
+    position: sticky;
+}
+
+.campaign-explorer-home {
+    color: gray;
+    background-color: white;
+    height: 100vh;
+    width: 100%;
+}
+
+.one-campaign-tile {
+    border: 1px solid blue;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+#campaign-picture-preview img {
+    height: 150px;
+}
+
+.campaign-tile-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+#learn-more-text {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    transition: .3s;
+}
+
+#learn-more-text:hover {
+    transform: translateX(10px);
+}
+
+#learn-more-text img {
+    line-height: -100px;
+}
