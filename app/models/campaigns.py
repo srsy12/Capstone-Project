@@ -35,7 +35,7 @@ class Campaign(db.Model):
             "goal": self.goal,
         }
 
-    def to_dict(self):
+    def no_rewards(self):
         return {
             "id": self.id,
             "owner_id": self.owner_id,
@@ -48,4 +48,21 @@ class Campaign(db.Model):
             "description": self.description,
             "current_funds": self.current_funds,
             "goal": self.goal,
+        }
+
+    def to_dict(self):
+        rewards_list = [reward.to_dict() for reward in self.rewards]
+        return {
+            "id": self.id,
+            "owner_id": self.owner_id,
+            "owner": self.owner.to_dict(),
+            "image_url": self.image_url,
+            "state": self.state,
+            "country": self.country,
+            "name": self.name,
+            "tagline": self.tagline,
+            "description": self.description,
+            "current_funds": self.current_funds,
+            "goal": self.goal,
+            "rewards": rewards_list,
         }

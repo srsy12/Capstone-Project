@@ -6,7 +6,7 @@ from sqlalchemy.sql import text
 def seed_campaigns():
     drone = Campaign(
         owner_id=1,
-        image_url="https://i.guim.co.uk/img/media/a921d55139061ed100eb4949c3560b5e284851ac/0_2067_4750_2849/master/4750.jpg",
+        image_url="https://img.freepik.com/premium-photo/drone-dark-background_543889-296.jpg",
         state="New York",
         country="USA",
         name="Project ShadowWing",
@@ -54,7 +54,7 @@ Are you ready to be part of a technological breakthrough? Contribute to Project 
         owner_id=2,
         image_url="https://www.webstaurantstore.com/images/products/large/234035/1362515.jpg",
         state="Texas",
-        country="Country",
+        country="USA",
         name="Taco Knight",
         tagline="Taco Titan: Revolutionizing Taco Night!",
         description=""" Welcome to the future of taco enjoyment! We're thrilled to introduce the Taco Titan, the ultimate solution to messy taco feasts. Join us in making Taco Tuesday and every taco night a hassle-free, delicious experience by supporting our Fetch campaign.

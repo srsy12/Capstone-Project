@@ -56,7 +56,7 @@ def create_campaign():
         )
         db.session.add(campaign)
         db.session.commit()
-        return campaign.to_dict()
+        return campaign.no_rewards()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
