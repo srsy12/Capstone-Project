@@ -20,9 +20,18 @@
 }
 
 .nav-profile-butt {
+  width: 2rem;
+}
+
+.right-side-nav {
   margin-right: 1rem;
   text-align: center;
-  width: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.create-campaign-butt {
+  margin-right: 1rem;
 }
 
 .active {

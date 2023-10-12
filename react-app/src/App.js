@@ -6,6 +6,8 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
+import CampaignDetailPage from "./components/CampaignDetail";
+import CreateCampaignForm from "./components/CreateCampaign";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +26,12 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path="/campaigns/new">
+            <CreateCampaignForm />
+          </Route>
+          <Route path="/campaigns/:campaignId">
+            <CampaignDetailPage />
           </Route>
           <Route path="/">
             <HomePage />
