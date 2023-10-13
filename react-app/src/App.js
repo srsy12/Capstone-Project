@@ -9,6 +9,8 @@ import HomePage from "./components/HomePage";
 import CampaignDetailPage from "./components/CampaignDetail";
 import CreateCampaignForm from "./components/CreateCampaign";
 import UpdateCampaignForm from "./components/UpdateCampaign";
+import CreateRewardForm from "./components/CreateRewardForm";
+import UpdateRewardForm from "./components/UpdateRewardForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +30,9 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+          <Route path="/campaigns/:campaignId/rewards/new">
+            <CreateRewardForm />
+          </Route>
           <Route path="/campaigns/update/:campaignId">
             <UpdateCampaignForm />
           </Route>
@@ -36,6 +41,9 @@ function App() {
           </Route>
           <Route path="/campaigns/:campaignId">
             <CampaignDetailPage />
+          </Route>
+          <Route path="/rewards/update/:rewardId">
+            <UpdateRewardForm />
           </Route>
           <Route path="/">
             <HomePage />
