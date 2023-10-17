@@ -16,8 +16,9 @@ function OpenModalButton({
   };
 
   return (
-    <button onClick={onClick}>{buttonText}</button>
+    <button className="btn btn2" onClick={onClick}>{buttonText}</button>
   );
 }
 
 export default OpenModalButton;
+

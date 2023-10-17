@@ -23,54 +23,63 @@ function CampaignDetailPage() {
 
     const rewardsArr = Object.values(rewards)
 
+
+    const sortedValues = rewardsArr.toSorted((a, b) => a.price - b.price)
+
     return (
         <div className="home-page-content">
-            {sessionUser?.id == campaign?.owner_id && (
-                <div>
-                    <button onClick={() => history.push(`/campaigns/update/${campaignId}`)}>Update Campaign</button>
-                    <OpenModalButton
-                        buttonText="Delete Campaign"
-                        modalComponent={<DeleteForm campaignId={campaignId} />}
-                    />
-                </div>
-            )}
-            <div>{campaign?.name}</div>
-            <div>{campaign?.tagline}</div>
-            <img src={campaign?.image_url} />
-            <div>{campaign?.state}, {campaign?.country}</div>
-            <div>{campaign?.owner.username}</div>
-            <div>${campaign?.current_funds} / ${campaign?.goal}</div>
-            <div>{campaign?.description}</div>
-            {sessionUser?.id == campaign?.owner_id && (
-                <div>
-                    <button onClick={() => history.push(`/campaigns/${campaignId}/rewards/new`)}>Add a Reward Tier</button>
-                </div>
-            )}
-            {rewardsArr?.length > 0 && (
-                <div>
-                    {rewardsArr?.map((reward) => (
+            <div id="details-img-container">
+                <img src={campaign?.image_url} />
+            </div>
+            <div id="details-content">
+                <div id="details-header-info">
+                    <div id="details-nametag">
                         <div>
-                            <div>{reward.name}</div>
-                            <div>{reward.price}</div>
-                            <div>{reward.description}</div>
+                            <div id="details-name">{campaign?.name}</div>
+                            <div id="details-tagline">{campaign?.tagline}</div>
+                            <div>{campaign?.state}, {campaign?.country}</div>
+                            <div>{campaign?.owner.username}</div>
+                            <div>${campaign?.current_funds} / ${campaign?.goal}</div>
                             {sessionUser?.id == campaign?.owner_id && (
                                 <div>
-                                    <button onClick={() => history.push(`/rewards/update/${reward.id}`)}>Update Reward Tier</button>
+                                    <button className=" btn btn1" onClick={() => history.push(`/campaigns/update/${campaignId}`)}>Update Campaign</button>
                                     <OpenModalButton
-                                        buttonText="Delete Reward Tier"
-                                        modalComponent={<DeleteRewardForm rewardId={reward.id} campaignId={campaignId} />}
+                                        buttonText="Delete Campaign"
+                                        modalComponent={<DeleteForm campaignId={campaignId} />}
                                     />
-                                </div>
-                            )}
-                            {sessionUser?.id != campaign?.owner_id && (
-                                <div>
-                                    <button>Support</button>
+                                    <button className="btn btn1" onClick={() => history.push(`/campaigns/${campaignId}/rewards/new`)}>Add a Reward Tier</button>
                                 </div>
                             )}
                         </div>
-                    ))}
+                    </div>
+                    <div>{campaign?.description}</div>
                 </div>
-            )}
+                {sortedValues?.length > 0 && (
+                    <div>
+                        {sortedValues?.map((reward) => (
+                            <div>
+                                <div>{reward.name}</div>
+                                <div>${reward.price}</div>
+                                <div>{reward.description}</div>
+                                {sessionUser?.id == campaign?.owner_id && (
+                                    <div>
+                                        <button className="btn btn1" onClick={() => history.push(`/rewards/update/${reward.id}`)}>Update Reward Tier</button>
+                                        <OpenModalButton
+                                            buttonText="Delete Reward Tier"
+                                            modalComponent={<DeleteRewardForm rewardId={reward.id} campaignId={campaignId} />}
+                                        />
+                                    </div>
+                                )}
+                                {sessionUser?.id != campaign?.owner_id && sessionUser?.id && (
+                                    <div>
+                                        <button className="btn btn1">Support</button>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
