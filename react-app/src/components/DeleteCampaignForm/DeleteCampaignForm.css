@@ -1,0 +1,35 @@
+.delete-form-container {
+    height: 40vh;
+    width: 40vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.delete-welcome-text {
+    background-color: black;
+    color: white;
+    font-size: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-form-buttons {
+    background: none;
+    color: black;
+    padding: 0.5rem;
+    border: 2px solid black;
+    transition: color .4s linear;
+    text-transform: uppercase;
+    width: 12rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.delete-form-buttons:hover {
+    background-color: black;
+    color: white;
+    transition: color .5s ease-in-out;
+    transition: background-color .5s ease-in-out;
+}

@@ -4,10 +4,12 @@ import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk';
 import session from './session'
 import campaignReducer from './campaigns';
+import rewardReducer from './rewards';
 
 const rootReducer = combineReducers({
   session,
-  campaigns: campaignReducer
+  campaigns: campaignReducer,
+  rewards: rewardReducer
 });
 
 

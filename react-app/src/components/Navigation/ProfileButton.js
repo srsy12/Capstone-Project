@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { logout } from "../../store/session";
 import { useModal } from "../../context/Modal";
-import OpenModalButton from "../OpenModalButton";
+import OpenModalButton2 from "../OpenModalButton/loginsignupbuttons";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
@@ -53,18 +53,18 @@ function ProfileButton({ user }) {
             <li>{user.username}</li>
             <li>{user.email}</li>
             <li>
-              <button onClick={handleLogout}>Log Out</button>
+              <button className="login-form-button" onClick={handleLogout}>Log Out</button>
             </li>
           </>
         ) : (
           <>
-            <OpenModalButton
+            <OpenModalButton2
               buttonText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
 
-            <OpenModalButton
+            <OpenModalButton2
               buttonText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}

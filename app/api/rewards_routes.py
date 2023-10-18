@@ -67,7 +67,9 @@ def create_reward(id):
 def get_specific_rewards(id):
     campaign = Campaign.query.get(id)
     if campaign:
-        rewards = Reward.query.filter(Reward.campaign_id == campaign.id)
+        rewards = Reward.query.filter(Reward.campaign_id == campaign.id).order_by(
+            Reward.price
+        )
         results = []
         for reward in rewards:
             results.append(reward.to_dict())
