@@ -77,7 +77,7 @@ function CreateCampaignForm() {
             try {
                 const createdCampaign = await dispatch(createCampaign(newCampaign));
                 if (createdCampaign) {
-                    history.push(`/campaigns/${createdCampaign.id}`);
+                    history.push(`/campaigns/${createdCampaign.id}/rewards/new`);
                 }
             } catch (error) {
                 console.error("Campaign creation failed:", error);
@@ -169,7 +169,7 @@ function CreateCampaignForm() {
                 </div>
 
                 <button type="submit" disabled={validSubmit}>
-                    Create Campaign
+                    Add Your First Reward Tier
                 </button>
             </form>
         </div>

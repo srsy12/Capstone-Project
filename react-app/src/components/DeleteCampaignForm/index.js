@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { deleteCampaign, getOneCampaign } from "../../store/campaigns";
 import { useModal } from "../../context/Modal";
-
+import "./DeleteCampaignForm.css"
 
 const DeleteForm = ({ campaignId }) => {
     const dispatch = useDispatch();
@@ -20,12 +20,14 @@ const DeleteForm = ({ campaignId }) => {
     }
 
     return (
-        <div className="delete-container">
-            <h2 className="borp">Confirm Delete</h2>
-            <p className="delete-text">Are you sure you want to delete this campaign?</p>
-            <div className="button57-container">
-                <button className="yes-button1" onClick={() => handleDelete()}>YES (Delete Campaign)</button>
-                <button className="no-button1" onClick={() => closeModal()}>NO (Keep Campaign)</button>
+        <div className="delete-form-container">
+            <div className="delete-welcome-text">
+                <h1>Delete</h1>
+            </div>
+            <div className="login-form-form">
+                <h1>Delete Campaign?</h1>
+                <button className="delete-form-buttons" onClick={() => handleDelete()}>YES (Delete Campaign)</button>
+                <button className="delete-form-buttons" onClick={() => closeModal()}>NO (Keep Campaign)</button>
             </div>
         </div>
     )
