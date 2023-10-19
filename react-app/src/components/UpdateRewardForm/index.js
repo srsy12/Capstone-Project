@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom"
 import { updateReward, singleReward } from "../../store/rewards";
+import { useLocation } from 'react-router-dom';
 
 function UpdateRewardForm() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { rewardId } = useParams()
-
+    const { pathname } = useLocation();
     const reward = useSelector((state) => state?.rewards[rewardId])
     const [name, setName] = useState(reward?.name);
     const [price, setPrice] = useState(reward?.price);
@@ -18,6 +19,10 @@ function UpdateRewardForm() {
     useEffect(() => {
         dispatch(singleReward(rewardId));
     }, [dispatch, rewardId]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname]);
 
     const updateName = (e) => setName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
@@ -65,44 +70,49 @@ function UpdateRewardForm() {
 
     return (
         <div className="home-page-content">
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                        type="string"
-                        placeholder="Enter Name"
-                        value={name}
-                        onChange={updateName}
-                        className={`input-field ${errors.name ? 'error' : ''}`}
-                    />
-                    {errors.name && <p className="error-message">* {errors.name}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="price">Price</label>
-                    <input
-                        type="number"
-                        placeholder="Enter a price for this reward tier"
-                        value={price}
-                        onChange={updatePrice}
-                        className={`input-field ${errors.price ? 'error' : ''}`}
-                    />
-                    {errors.price && <p className="error-message">* {errors.price}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="description">Description</label>
-                    <input
-                        type="text"
-                        placeholder="Enter description"
-                        value={description}
-                        onChange={updateDescription}
-                        className={`input-field ${errors.description ? 'error' : ''}`}
-                    />
-                    {errors.description && <p className="error-message">* {errors.description}</p>}
-                </div>
-                <button type="submit" disabled={validSubmit}>
-                    Update Reward Tier
-                </button>
-            </form>
+            <div className="form-container">
+                <form className="campaign-form-style" onSubmit={handleSubmit}>
+                    <div className="form-header">
+                        <h1>UPDATE A REWARD TIER</h1>
+                        <p>Change this reward tier to match your current goals</p>
+                    </div>
+                    <div className="input-container">
+                        <div className="form-group">
+                            <label htmlFor="name">Tier Name  {errors.name && <p className="error-message">* {errors.name}</p>}</label>
+                            <input
+                                type="string"
+                                value={name}
+                                onChange={updateName}
+                                className={`input-field ${errors.name ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="goal">Price {errors.price && <p className="error-message">* {errors.price}</p>}</label>
+                            <input
+                                type="number"
+                                value={price}
+                                onChange={updatePrice}
+                                className={`input-field ${errors.price ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="descr-input">
+                            <label htmlFor="description">Description {errors.description && <p className="error-message">* {errors.description}</p>}</label>
+                            <textarea
+                                type="text"
+                                value={description}
+                                onChange={updateDescription}
+                                className={` input-field ${errors.description ? 'error' : ''}`}
+                            />
+                        </div>
+                    </div>
+
+                    <button className="form-submit-button" type="submit" disabled={validSubmit}>
+                        <div className="button-text">
+                            Update this Tier ➤
+                        </div>
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

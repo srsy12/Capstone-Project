@@ -1,13 +1,14 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom"
 import { createReward } from "../../store/rewards";
+import { useLocation } from 'react-router-dom'
 
 function CreateRewardForm() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { campaignId } = useParams()
-
+    const { pathname } = useLocation();
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("")
@@ -19,6 +20,9 @@ function CreateRewardForm() {
     const updateDescription = (e) => setDescription(e.target.value);
 
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,44 +64,52 @@ function CreateRewardForm() {
 
     return (
         <div className="home-page-content">
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                        type="string"
-                        placeholder="Enter Name"
-                        value={name}
-                        onChange={updateName}
-                        className={`input-field ${errors.name ? 'error' : ''}`}
-                    />
-                    {errors.name && <p className="error-message">* {errors.name}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="price">Price</label>
-                    <input
-                        type="number"
-                        placeholder="Enter a price for this reward tier"
-                        value={price}
-                        onChange={updatePrice}
-                        className={`input-field ${errors.price ? 'error' : ''}`}
-                    />
-                    {errors.price && <p className="error-message">* {errors.price}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="description">Description</label>
-                    <input
-                        type="text"
-                        placeholder="Enter description"
-                        value={description}
-                        onChange={updateDescription}
-                        className={`input-field ${errors.description ? 'error' : ''}`}
-                    />
-                    {errors.description && <p className="error-message">* {errors.description}</p>}
-                </div>
-                <button type="submit" disabled={validSubmit}>
-                    Create Reward Tier
-                </button>
-            </form>
+            <div className="form-container">
+                <form className="campaign-form-style" onSubmit={handleSubmit}>
+                    <div className="form-header">
+                        <h1>ADD A REWARD TIER</h1>
+                        <p>Tell backers about benefits they would receive by supporting your project</p>
+                    </div>
+                    <div className="input-container">
+                        <div className="form-group">
+                            <label htmlFor="name">Tier Name  {errors.name && <p className="error-message">* {errors.name}</p>}</label>
+                            <input
+                                type="string"
+                                placeholder="Give your reward tier a distinct name"
+                                value={name}
+                                onChange={updateName}
+                                className={`input-field ${errors.name ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="goal">Price {errors.price && <p className="error-message">* {errors.price}</p>}</label>
+                            <input
+                                type="number"
+                                placeholder="Enter a price for this reward tier"
+                                value={price}
+                                onChange={updatePrice}
+                                className={`input-field ${errors.price ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="descr-input">
+                            <label htmlFor="description">Description {errors.description && <p className="error-message">* {errors.description}</p>}</label>
+                            <textarea
+                                type="text"
+                                placeholder="Be as descriptive as possible while describing this tier's benefits."
+                                value={description}
+                                onChange={updateDescription}
+                                className={` input-field ${errors.description ? 'error' : ''}`}
+                            />
+                        </div>
+                    </div>
+
+                    <button className="form-submit-button" type="submit" disabled={validSubmit}>
+                        <div className="button-text">
+                            Create Reward Tier ➤
+                        </div>
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

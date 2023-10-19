@@ -1,13 +1,14 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { createCampaign } from "../../store/campaigns";
+import { useLocation } from 'react-router-dom'
 import "./CreateCampaign.css"
 
 function CreateCampaignForm() {
     const dispatch = useDispatch()
     const history = useHistory()
-
+    const { pathname } = useLocation();
     const [country, setCountry] = useState("");
     const [state, setState] = useState("");
     const [name, setName] = useState("");
@@ -28,6 +29,9 @@ function CreateCampaignForm() {
     const updateDescription = (e) => setDescription(e.target.value);
 
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -89,89 +93,92 @@ function CreateCampaignForm() {
 
     return (
         <div className="home-page-content">
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                        type="string"
-                        placeholder="Enter Name"
-                        value={name}
-                        onChange={updateName}
-                        className={`input-field ${errors.name ? 'error' : ''}`}
-                    />
-                    {errors.name && <p className="error-message">* {errors.name}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="goal">Price Goal</label>
-                    <input
-                        type="number"
-                        placeholder="Enter a Fundraising Goal for your campaign"
-                        value={goal}
-                        onChange={updateGoal}
-                        className={`input-field ${errors.goal ? 'error' : ''}`}
-                    />
-                    {errors.goal && <p className="error-message">* {errors.goal}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="state">State</label>
-                    <input
-                        type="string"
-                        placeholder="Enter state"
-                        value={state}
-                        onChange={updateState}
-                        className={`input-field ${errors.state ? 'error' : ''}`}
-                    />
-                    {errors.state && <p className="error-message">* {errors.state}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="country">Country</label>
-                    <input
-                        type="string"
-                        placeholder="Enter country"
-                        value={country}
-                        onChange={updateCountry}
-                        className={`input-field ${errors.country ? 'error' : ''}`}
-                    />
-                    {errors.country && <p className="error-message">* {errors.country}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="tagline">Tagline</label>
-                    <input
-                        type="string"
-                        placeholder="Enter tagline"
-                        value={tagline}
-                        onChange={updateTagline}
-                        className={`input-field ${errors.tagline ? 'error' : ''}`}
-                    />
-                    {errors.tagline && <p className="error-message">* {errors.tagline}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="description">Description</label>
-                    <input
-                        type="text"
-                        placeholder="Enter description"
-                        value={description}
-                        onChange={updateDescription}
-                        className={`input-field ${errors.description ? 'error' : ''}`}
-                    />
-                    {errors.description && <p className="error-message">* {errors.description}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="image">Image</label>
-                    <input
-                        type="text"
-                        placeholder="Enter an Image URL"
-                        value={image_url}
-                        onChange={updateUrl}
-                        className={`input-field ${errors.urls ? 'error' : ''}`}
-                    />
-                    {errors.urls && <p className="error-message">* {errors.urls}</p>}
-                </div>
+            <div className="form-container">
+                <form className="campaign-form-style" onSubmit={handleSubmit}>
+                    <div className="form-header">
+                        <h1>CREATE YOUR CAMPAIGN</h1>
+                        <p>Take the first step into getting your project off the ground</p>
+                    </div>
+                    <div className="input-container">
+                        <div className="form-group">
+                            <label htmlFor="name">Name  {errors.name && <p className="error-message">* {errors.name}</p>}</label>
+                            <input
+                                type="string"
+                                placeholder="Every good project needs an eyecatching name"
+                                value={name}
+                                onChange={updateName}
+                                className={`input-field ${errors.name ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="goal">Price Goal {errors.goal && <p className="error-message">* {errors.goal}</p>}</label>
+                            <input
+                                type="number"
+                                placeholder="Enter a fundraising goal for your campaign"
+                                value={goal}
+                                onChange={updateGoal}
+                                className={`input-field ${errors.goal ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="state">State {errors.state && <p className="error-message">* {errors.state}</p>}</label>
+                            <input
+                                type="string"
+                                placeholder="Enter the state you are based in"
+                                value={state}
+                                onChange={updateState}
+                                className={`input-field ${errors.state ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="country">Country {errors.country && <p className="error-message">* {errors.country}</p>}</label>
+                            <input
+                                type="string"
+                                placeholder="Enter the country you are based in"
+                                value={country}
+                                onChange={updateCountry}
+                                className={`input-field ${errors.country ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="tagline">Tagline {errors.tagline && <p className="error-message">* {errors.tagline}</p>}</label>
+                            <input
+                                type="string"
+                                placeholder="Enter a tagline for your campaign"
+                                value={tagline}
+                                onChange={updateTagline}
+                                className={`input-field ${errors.tagline ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="descr-input">
+                            <label htmlFor="description">Description {errors.description && <p className="error-message">* {errors.description}</p>}</label>
+                            <textarea
+                                type="text"
+                                placeholder="Be as descriptive as possible while describing your project."
+                                value={description}
+                                onChange={updateDescription}
+                                className={` input-field ${errors.description ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="image">Image {errors.urls && <p className="error-message">* {errors.urls}</p>}</label>
+                            <input
+                                type="text"
+                                placeholder="Enter an Image URL"
+                                value={image_url}
+                                onChange={updateUrl}
+                                className={`input-field ${errors.urls ? 'error' : ''}`}
+                            />
+                        </div>
+                    </div>
 
-                <button type="submit" disabled={validSubmit}>
-                    Add Your First Reward Tier
-                </button>
-            </form>
+                    <button className="form-submit-button" type="submit" disabled={validSubmit}>
+                        <div className="button-text">
+                            Add Your First Reward Tier ➤
+                        </div>
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }
