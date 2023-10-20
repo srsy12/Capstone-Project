@@ -112,11 +112,16 @@ def search_filter():
     # return results
     results = []
     campaigns = Campaign.query.all()
-    for campaign in campaigns:
-        for value in list(campaign.to_dict().values()):
-            if isinstance(value, str):
-                if query.lower() in value.lower():
-                    if campaign.no_description() not in results:
-                        results.append(campaign.no_description())
+
+    if query:
+        for campaign in campaigns:
+            for value in list(campaign.to_dict().values()):
+                if isinstance(value, str):
+                    if query.lower() in value.lower():
+                        if campaign.no_description() not in results:
+                            results.append(campaign.no_description())
+    else:
+        for campaign in campaigns:
+            results.append(campaign.no_description())
 
     return results

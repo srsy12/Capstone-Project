@@ -92,3 +92,11 @@
   cursor: pointer;
 
 }
+
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 1rem;
+}
+

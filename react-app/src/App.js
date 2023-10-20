@@ -11,6 +11,7 @@ import CreateCampaignForm from "./components/CreateCampaign";
 import UpdateCampaignForm from "./components/UpdateCampaign";
 import CreateRewardForm from "./components/CreateRewardForm";
 import UpdateRewardForm from "./components/UpdateRewardForm";
+import SearchPage from "./components/SearchPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route path="/campaigns/:campaignId/rewards/new">
             <CreateRewardForm />
+          </Route>
+          <Route path="/campaigns/search/:query">
+            <SearchPage />
           </Route>
           <Route path="/campaigns/update/:campaignId">
             <UpdateCampaignForm />
