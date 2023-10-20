@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom"
 import { updateCampaign, getOneCampaign } from "../../store/campaigns";
+import { useLocation } from 'react-router-dom'
 import "../CreateCampaign/CreateCampaign.css"
 
 function UpdateCampaignForm() {
@@ -9,7 +10,7 @@ function UpdateCampaignForm() {
     const history = useHistory()
     const { campaignId } = useParams()
     const campaign = useSelector((state) => state?.campaigns[campaignId])
-
+    const { pathname } = useLocation();
     const [country, setCountry] = useState(campaign?.country);
     const [state, setState] = useState(campaign?.state);
     const [name, setName] = useState(campaign?.name);
@@ -23,6 +24,10 @@ function UpdateCampaignForm() {
     useEffect(() => {
         dispatch(getOneCampaign(campaignId));
     }, [dispatch, campaignId]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname]);
 
     const updateState = (e) => setState(e.target.value);
     const updateCountry = (e) => setCountry(e.target.value)
@@ -94,82 +99,85 @@ function UpdateCampaignForm() {
 
     return (
         <div className="home-page-content">
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                        type="string"
-                        value={name}
-                        onChange={updateName}
-                        className={`input-field ${errors.name ? 'error' : ''}`}
-                    />
-                    {errors.name && <p className="error-message">* {errors.name}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="goal">Price Goal</label>
-                    <input
-                        type="number"
-                        value={goal}
-                        onChange={updateGoal}
-                        className={`input-field ${errors.goal ? 'error' : ''}`}
-                    />
-                    {errors.goal && <p className="error-message">* {errors.goal}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="state">State</label>
-                    <input
-                        type="string"
-                        value={state}
-                        onChange={updateState}
-                        className={`input-field ${errors.state ? 'error' : ''}`}
-                    />
-                    {errors.state && <p className="error-message">* {errors.state}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="country">Country</label>
-                    <input
-                        type="string"
-                        value={country}
-                        onChange={updateCountry}
-                        className={`input-field ${errors.country ? 'error' : ''}`}
-                    />
-                    {errors.country && <p className="error-message">* {errors.country}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="tagline">Tagline</label>
-                    <input
-                        type="string"
-                        value={tagline}
-                        onChange={updateTagline}
-                        className={`input-field ${errors.tagline ? 'error' : ''}`}
-                    />
-                    {errors.tagline && <p className="error-message">* {errors.tagline}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="description">Description</label>
-                    <input
-                        type="text"
-                        value={description}
-                        onChange={updateDescription}
-                        className={`input-field ${errors.description ? 'error' : ''}`}
-                    />
-                    {errors.description && <p className="error-message">* {errors.description}</p>}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="image">Image</label>
-                    <input
-                        type="text"
-                        value={image_url}
-                        onChange={updateUrl}
-                        className={`input-field ${errors.urls ? 'error' : ''}`}
-                    />
-                    {errors.urls && <p className="error-message">* {errors.urls}</p>}
-                </div>
+            <div className="form-container">
+                <form className="campaign-form-style" onSubmit={handleSubmit}>
+                    <div className="form-header">
+                        <h1>Update YOUR CAMPAIGN</h1>
+                        <p>Change your project to match your current goals</p>
+                    </div>
+                    <div className="input-container">
+                        <div className="form-group">
+                            <label htmlFor="name">Name  {errors.name && <p className="error-message">* {errors.name}</p>}</label>
+                            <input
+                                type="string"
+                                value={name}
+                                onChange={updateName}
+                                className={`input-field ${errors.name ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="goal">Price Goal {errors.goal && <p className="error-message">* {errors.goal}</p>}</label>
+                            <input
+                                type="number"
+                                value={goal}
+                                onChange={updateGoal}
+                                className={`input-field ${errors.goal ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="state">State {errors.state && <p className="error-message">* {errors.state}</p>}</label>
+                            <input
+                                type="string"
+                                value={state}
+                                onChange={updateState}
+                                className={`input-field ${errors.state ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="country">Country {errors.country && <p className="error-message">* {errors.country}</p>}</label>
+                            <input
+                                type="string"
+                                value={country}
+                                onChange={updateCountry}
+                                className={`input-field ${errors.country ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="tagline">Tagline {errors.tagline && <p className="error-message">* {errors.tagline}</p>}</label>
+                            <input
+                                type="string"
+                                value={tagline}
+                                onChange={updateTagline}
+                                className={`input-field ${errors.tagline ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="descr-input">
+                            <label htmlFor="description">Description {errors.description && <p className="error-message">* {errors.description}</p>}</label>
+                            <textarea
+                                type="text"
+                                value={description}
+                                onChange={updateDescription}
+                                className={` input-field ${errors.description ? 'error' : ''}`}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="image">Image {errors.urls && <p className="error-message">* {errors.urls}</p>}</label>
+                            <input
+                                type="text"
+                                value={image_url}
+                                onChange={updateUrl}
+                                className={`input-field ${errors.urls ? 'error' : ''}`}
+                            />
+                        </div>
+                    </div>
 
-                <button type="submit" disabled={validSubmit}>
-                    Update Campaign
-                </button>
-            </form>
+                    <button className="form-submit-button" type="submit" disabled={validSubmit}>
+                        <div className="button-text">
+                            Update Campaign ➤
+                        </div>
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

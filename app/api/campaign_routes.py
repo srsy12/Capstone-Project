@@ -99,3 +99,24 @@ def delete_campaign(id):
             return {"message": "Campaign successfully deleted"}
         return {"errors": "You must own this campaign to complete this action!"}, 401
     return {"error": "Campaign not found"}, 404
+
+
+@campaign_routes.route("/search")
+def search_filter():
+    query = request.args.get("query")
+
+    # results = []
+    # campaign = Campaign.query.get(1)
+    # if query in list(campaign.no_description().values()):
+    #     results.append(campaign.no_description())
+    # return results
+    results = []
+    campaigns = Campaign.query.all()
+    for campaign in campaigns:
+        for value in list(campaign.to_dict().values()):
+            if isinstance(value, str):
+                if query.lower() in value.lower():
+                    if campaign.no_description() not in results:
+                        results.append(campaign.no_description())
+
+    return results

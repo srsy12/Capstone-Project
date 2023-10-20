@@ -25,6 +25,7 @@ class Campaign(db.Model):
         return {
             "id": self.id,
             "owner_id": self.owner_id,
+            "owner_name": self.owner.to_dict()["username"],
             "owner": self.owner.to_dict(),
             "image_url": self.image_url,
             "state": self.state,
@@ -39,6 +40,7 @@ class Campaign(db.Model):
         return {
             "id": self.id,
             "owner_id": self.owner_id,
+            "owner_name": self.owner.to_dict()["username"],
             "owner": self.owner.to_dict(),
             "image_url": self.image_url,
             "state": self.state,
@@ -55,6 +57,7 @@ class Campaign(db.Model):
         return {
             "id": self.id,
             "owner_id": self.owner_id,
+            "owner_name": self.owner.to_dict()["username"],
             "owner": self.owner.to_dict(),
             "image_url": self.image_url,
             "state": self.state,
