@@ -29,6 +29,20 @@ const deleteCampaignAction = (campaignId) => ({
     campaignId
 })
 
+export const searchCampaigns = (query) => async (dispatch) => {
+    let res;
+    if (query !== 0) {
+        res = await fetch(`/api/campaigns/search?query=${query}`)
+    } else {
+        res = await fetch(`/api/campaigns`);
+    }
+
+    if (res.ok) {
+        const campaigns = await res.json();
+        dispatch(loadCampaigns(campaigns));
+        return campaigns;
+    }
+}
 export const getAllCampaigns = () => async (dispatch) => {
     const res = await fetch(`/api/campaigns`);
 
@@ -87,6 +101,7 @@ export const deleteCampaign = (campaignId) => async (dispatch) => {
         return deleted;
     }
 }
+
 
 
 const campaignReducer = (state = {}, action) => {
