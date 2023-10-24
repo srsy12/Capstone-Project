@@ -10,8 +10,6 @@ class User(db.Model, UserMixin):
         __table_args__ = {"schema": SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    firstName = db.Column(db.String, nullable=False)
-    lastName = db.Column(db.String)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
@@ -19,6 +17,7 @@ class User(db.Model, UserMixin):
     campaigns = db.relationship(
         "Campaign", back_populates="owner", cascade="all, delete-orphan"
     )
+    supports = db.relationship("Support", back_populates="user")
 
     @property
     def password(self):
@@ -32,10 +31,19 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
     def to_dict(self):
+        campaigns_list = [campaign.no_owner() for campaign in self.campaigns]
+        supports_list = [support.campaigns_list() for support in self.supports]
         return {
             "id": self.id,
-            "firstName": self.firstName,
-            "lastName": self.lastName,
+            "username": self.username,
+            "email": self.email,
+            "campaigns": campaigns_list,
+            "supports": supports_list,
+        }
+
+    def no_campaign(self):
+        return {
+            "id": self.id,
             "username": self.username,
             "email": self.email,
         }

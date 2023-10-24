@@ -3,6 +3,8 @@ const SINGLE_REWARD = "SINGLE_REWARD"
 const CREATE_REWARD = "CREATE_REWARD"
 const UPDATE_REWARD = "UPDATE_REWARD"
 const DELETE_REWARD = "DELETE_REWARD"
+const SUPPORT_REWARD = "SUPPORT_REWARD"
+const DELETE_SUPPORT = "DELETE_SUPPORT"
 
 const getCampaignRewardsAction = (rewards) => ({
     type: GET_REWARDS,
@@ -29,6 +31,41 @@ const deleteRewardAction = (rewardId) => ({
     rewardId
 })
 
+const supportRewardAction = (support) => ({
+    type: SUPPORT_REWARD,
+    support
+})
+
+const deleteSupportAction = (supportId) => ({
+    type: DELETE_SUPPORT,
+    supportId
+})
+
+export const supportReward = (rewardId) => async (dispatch) => {
+    const res = await fetch(`/api/rewards/support/${rewardId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({})
+    })
+
+    if (res.ok) {
+        const support = await res.json()
+        dispatch(supportRewardAction(support))
+        return support
+    }
+}
+
+export const deleteSupport = (supportId) => async (dispatch) => {
+    const res = await fetch(`/api/rewards/support/cancel/${supportId}`, {
+        method: "DELETE",
+    });
+
+    if (res.ok) {
+        const deleted = await res.json()
+        dispatch(deleteSupportAction(supportId))
+        return deleted
+    }
+}
 export const singleReward = (rewardId) => async (dispatch) => {
     const res = await fetch(`/api/rewards/${rewardId}`)
 

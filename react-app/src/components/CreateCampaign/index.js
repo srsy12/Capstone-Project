@@ -46,9 +46,13 @@ function CreateCampaignForm() {
         }
         if (!name) {
             errors.name = "Name is required"
+        } else if (name.length < 5) {
+            errors.name = "Name must be longer than 5 letters"
         }
         if (!goal) {
             errors.goal = "Goal is required"
+        } else if (goal <= 0) {
+            errors.goal = "Price goal must be a positive number"
         }
         if (!tagline) {
             errors.tagline = "Tagline is required"

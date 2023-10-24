@@ -20,6 +20,7 @@ class Campaign(db.Model):
 
     owner = db.relationship("User", back_populates="campaigns")
     rewards = db.relationship("Reward", back_populates="campaign")
+    supports = db.relationship("Support", back_populates="campaign")
 
     def no_description(self):
         return {
@@ -27,6 +28,18 @@ class Campaign(db.Model):
             "owner_id": self.owner_id,
             "owner_name": self.owner.to_dict()["username"],
             "owner": self.owner.to_dict(),
+            "image_url": self.image_url,
+            "state": self.state,
+            "country": self.country,
+            "name": self.name,
+            "tagline": self.tagline,
+            "current_funds": self.current_funds,
+            "goal": self.goal,
+        }
+
+    def no_owner(self):
+        return {
+            "id": self.id,
             "image_url": self.image_url,
             "state": self.state,
             "country": self.country,
@@ -54,6 +67,7 @@ class Campaign(db.Model):
 
     def to_dict(self):
         rewards_list = [reward.to_dict() for reward in self.rewards]
+        supports_list = [support.supporter_id()["user_id"] for support in self.supports]
         return {
             "id": self.id,
             "owner_id": self.owner_id,
@@ -68,4 +82,5 @@ class Campaign(db.Model):
             "current_funds": self.current_funds,
             "goal": self.goal,
             "rewards": rewards_list,
+            "supports": supports_list,
         }

@@ -8,22 +8,16 @@ def seed_users():
         username="Demo",
         email="demo@aa.io",
         password="password",
-        firstName="Demo",
-        lastName="User",
     )
     marnie = User(
         username="marnie",
         email="marnie@aa.io",
         password="password",
-        firstName="Marnie",
-        lastName="Jacobs",
     )
     bobbie = User(
         username="bobbie",
         email="bobbie@aa.io",
         password="password",
-        firstName="Bobbie",
-        lastName="Hill",
     )
 
     db.session.add(demo)

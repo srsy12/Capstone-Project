@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, Campaign, Reward
-from app.forms import RewardsForm
+from app.models import db, Campaign, Reward, Support
+from app.forms import RewardsForm, SupportForm
 from flask_login import current_user, login_required
 
 rewards_routes = Blueprint("rewards", __name__)
@@ -116,3 +116,50 @@ def delete_reward(id):
             return {"message": "Reward successfully deleted"}
         return {"errors": "You must own this reward to complete this action!"}, 401
     return {"error": "Reward not found"}, 404
+
+
+# Support a Reward
+@rewards_routes.route("/support/<int:id>", methods=["POST"])
+@login_required
+def support_rewards(id):
+    reward = Reward.query.get(id)
+    user = current_user.id
+
+    form = SupportForm()
+
+    if reward:
+        campaign = Campaign.query.get(reward.campaign_id)
+        if campaign.owner_id != user:
+            # print(campaign.to_dict()["supports"])
+            if user not in campaign.to_dict()["supports"]:
+                form["csrf_token"].data = request.cookies["csrf_token"]
+                if form.validate_on_submit():
+                    support = Support(
+                        campaign_id=campaign.id, reward_id=reward.id, user_id=user
+                    )
+                    campaign.current_funds += reward.price
+                    db.session.add(support)
+                    db.session.commit()
+                    return support.to_dict()
+                return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+            return {"errors": "User already supporting this campaign"}
+        return {"errors": "Campaign owner cannot support their own campaign"}, 401
+    return {"error": "Reward not found"}, 404
+
+
+# Cancel Support
+@rewards_routes.route("/support/cancel/<int:id>", methods=["DELETE"])
+@login_required
+def cancel_support(id):
+    support = Support.query.get(id)
+
+    if support:
+        reward = Reward.query.get(support.reward_id)
+        campaign = Campaign.query.get(support.campaign_id)
+        if support.user_id == current_user.id:
+            campaign.current_funds -= reward.price
+            db.session.delete(support)
+            db.session.commit()
+            return {"message": "Support successfully deleted"}
+        return {"errors": "You must own this support to complete this action!"}, 401
+    return {"error": "Support not found"}, 404
