@@ -81,3 +81,7 @@
     transition: color .5s ease-in-out;
     transition: background-color .5s ease-in-out;
 }
+
+.validation-err {
+    margin-bottom: 1rem;
+}

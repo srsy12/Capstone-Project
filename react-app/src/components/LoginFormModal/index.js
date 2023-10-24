@@ -32,7 +32,7 @@ function LoginFormModal() {
         <h1>Welcome Back!</h1>
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li className="error-message validation-err" key={idx}>{error}</li>
           ))}
         </ul>
         <label className="email-field">

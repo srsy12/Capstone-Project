@@ -16,8 +16,11 @@ class Reward(db.Model):
     description = db.Column(db.Text, nullable=False)
 
     campaign = db.relationship("Campaign", back_populates="rewards")
+    supports = db.relationship("Support", back_populates="reward")
 
     def to_dict(self):
+        supports_list = [support.supporter_id()["user_id"] for support in self.supports]
+        supports_full_list = [support.to_dict() for support in self.supports]
         return {
             "id": self.id,
             "campaign_id": self.campaign_id,
@@ -25,4 +28,6 @@ class Reward(db.Model):
             "name": self.name,
             "price": self.price,
             "description": self.description,
+            "supports": supports_list,
+            "supports_full": supports_full_list,
         }

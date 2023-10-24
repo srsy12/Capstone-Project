@@ -31,9 +31,13 @@ function CreateRewardForm() {
         const errors = {};
         if (!name) {
             errors.name = "Name is required"
+        } else if (name.length < 5) {
+            errors.name = "Name must be longer than 5 letters"
         }
         if (!price) {
             errors.price = "Price is required"
+        } else if (price <= 0) {
+            errors.price = "Price must be a positive number"
         }
         if (!description) {
             errors.description = "Description is required"

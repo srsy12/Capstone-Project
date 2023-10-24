@@ -5,6 +5,8 @@ import { getOneCampaign } from "../../store/campaigns";
 import { getOneRewards } from "../../store/rewards";
 import DeleteForm from "../DeleteCampaignForm";
 import DeleteRewardForm from "../DeleteRewardForm";
+import SupportForm from "../SupportFormModal";
+import CancelSupportForm from "../CancelSupportForm";
 import OpenModalButton from "../OpenModalButton";
 import "./CampaignDetail.css"
 
@@ -82,9 +84,20 @@ function CampaignDetailPage() {
                                         />
                                     </div>
                                 )}
-                                {sessionUser?.id != campaign?.owner_id && sessionUser?.id && (
+                                {sessionUser?.id != campaign?.owner_id && !reward?.supports.includes(sessionUser?.id) && sessionUser?.id && (
                                     <div className="rewards-butt-container">
-                                        <button className="btn btn1">Support</button>
+                                        <OpenModalButton
+                                            buttonText="Support"
+                                            modalComponent={<SupportForm rewardId={reward.id} campaignId={campaignId} userId={sessionUser?.id} />}
+                                        />
+                                    </div>
+                                )}
+                                {sessionUser?.id != campaign?.owner_id && reward?.supports.includes(sessionUser?.id) && sessionUser?.id && (
+                                    <div className="rewards-butt-container">
+                                        <OpenModalButton
+                                            buttonText="Cancel Support"
+                                            modalComponent={<CancelSupportForm rewardId={reward.id} campaignId={campaignId} userId={sessionUser?.id} />}
+                                        />
                                     </div>
                                 )}
                                 <div className="rewards-description">{reward.description}</div>

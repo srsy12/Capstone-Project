@@ -17,7 +17,7 @@ const DeleteRewardForm = ({ rewardId, campaignId }) => {
         if (deletedReward) {
             closeModal()
             dispatch(getOneCampaign(campaignId))
-            history.push(`/campaigns/${campaignId}`)
+            // history.push(`/campaigns/${campaignId}`)
         }
     }
 
