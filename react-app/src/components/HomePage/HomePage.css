@@ -51,6 +51,7 @@
     justify-content: flex-start;
     align-items: center;
     transition: .3s;
+    width: 80%;
 }
 
 #learn-more-text:hover {
