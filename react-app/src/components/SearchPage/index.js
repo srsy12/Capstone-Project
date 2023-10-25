@@ -22,32 +22,36 @@ function SearchPage() {
 
     let header;
 
-    if (query == 0) {
-        header = <div>Showing All Campaigns</div>
-    } else {
-        header = <div>Showing results for "{query}"</div>
+    if (campaigns.length == 0) {
+        header = <div className="search-header2">No results found</div>
+    } else if (campaigns.length && query == 0) {
+        header = <div className="search-header2">Showing All Campaigns</div>
+    } else if (campaigns.length) {
+        header = <div className="search-header">Showing results for "{query}"</div>
     }
 
     return (
         <div className="home-page-content">
             <div className="search-results-page">
-                <div>
-                    {header}
+                {header}
+                <div className="search-container">
                     {campaigns?.map((campaign) => (
                         <a className="campaign-tile-link" href={`/campaigns/${campaign?.id}`}>
-                            <div className="one-campaign-tile">
-                                <div>
-                                    {campaign?.name}
+                            <div className="single-campaign-tile">
+                                <div className="tile-info">
+                                    <div className="tile-name">
+                                        {campaign?.name}
+                                    </div>
+                                    <div className="tile-tagline">
+                                        {campaign?.tagline}
+                                    </div>
+                                    <div id="learn-more-text">
+                                        Learn More
+                                        <img height="15" width="15" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAjklEQVR4nO3asQ3CQBAF0WliLdN/JyRImAgCygEhXUSO9HeZ18HXOPDpDiT9yhm4ARvNXYEX8Og+poD7GvMETjRWjglVlglVlglVlgllmVSWSWWZVJZJNarMto7LnzEHjY0YUl+f1k5DjkhhiRSWSGGJFJZIYYkUlkhR/oqHqAklWMfSEdfTlykPBqR/8Abo/nQfGMTYTAAAAABJRU5ErkJggg==" />
+                                    </div>
                                 </div>
-                                <div>
-                                    {campaign?.tagline}
-                                </div>
-                                <div id="campaign-picture-preview">
+                                <div id="campaign-picture-preview2">
                                     <img src={campaign?.image_url} />
-                                </div>
-                                <div id="learn-more-text">
-                                    Learn More
-                                    <img height="15" width="15" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAjklEQVR4nO3asQ3CQBAF0WliLdN/JyRImAgCygEhXUSO9HeZ18HXOPDpDiT9yhm4ARvNXYEX8Og+poD7GvMETjRWjglVlglVlglVlgllmVSWSWWZVJZJNarMto7LnzEHjY0YUl+f1k5DjkhhiRSWSGGJFJZIYYkUlkhR/oqHqAklWMfSEdfTlykPBqR/8Abo/nQfGMTYTAAAAABJRU5ErkJggg==" />
                                 </div>
                             </div>
                         </a>

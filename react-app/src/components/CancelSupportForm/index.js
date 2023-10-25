@@ -28,8 +28,10 @@ const CancelSupportForm = ({ rewardId, campaignId, userId }) => {
     const handleSupport = () => {
         const deleted = dispatch(deleteSupport(support?.id))
         if (deleted) {
+            dispatch(getOneRewards(campaignId));
             dispatch(getOneCampaign(campaignId));
             dispatch(getOneRewards(campaignId));
+            dispatch(getOneCampaign(campaignId));
             closeModal()
             // history.push(`/campaigns/${campaignId}`)
         }

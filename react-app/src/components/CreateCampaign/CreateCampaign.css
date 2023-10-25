@@ -12,15 +12,15 @@
 
 .input-field::placeholder {
     color: grey;
-    font-family: 'Merriweather', serif;
+    font-family: 'Courier Prime', monospace;
 }
 
 input {
-    font-family: 'Merriweather', serif;
+    font-family: 'Courier Prime', monospace;
 }
 
 textarea {
-    font-family: 'Merriweather', serif;
+    font-family: 'Courier Prime', monospace;
 }
 
 .form-container input:focus {
@@ -59,12 +59,12 @@ textarea {
     resize: none;
     height: 70%;
     padding-top: 0.5rem;
-    font-family: 'Merriweather', serif;
+    font-family: 'Courier Prime', monospace;
 }
 
 .descr-input textarea::placeholder {
     resize: none;
-    font-family: 'Merriweather', serif;
+    font-family: 'Courier Prime', monospace;
 }
 
 .descr-input textarea:focus {
@@ -119,6 +119,7 @@ textarea {
     justify-content: center;
     align-items: center;
     transition: .3s;
+    font-family: 'Courier Prime', monospace;
 }
 
 .button-text:hover {

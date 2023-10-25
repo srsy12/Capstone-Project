@@ -32,7 +32,9 @@ const SupportForm = ({ rewardId, campaignId, userId }) => {
         if (supportedReward) {
             closeModal()
             dispatch(getOneRewards(campaignId));
-            dispatch(getOneCampaign(campaignId))
+            dispatch(getOneCampaign(campaignId));
+            dispatch(getOneRewards(campaignId));
+            dispatch(getOneCampaign(campaignId));
             // history.push(`/campaigns/${campaignId}`)
         }
     }

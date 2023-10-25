@@ -16,8 +16,10 @@ function HomePage() {
 
     return (
         <div className="home-page-content">
-            <div className="fetch-name-home">
-                Fetch
+            <div className="fetch-home">
+                <div className="fetch-name-home">
+                    Welcome to Fetch.
+                </div>
             </div>
             <div className="campaign-explorer-home">
                 <div className="get-started-home">
