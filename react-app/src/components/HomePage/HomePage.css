@@ -11,16 +11,16 @@
 }
 
 
-.fetch-name-home {
-    color: white;
+.fetch-home {
     background-color: black;
     height: 100vh;
     width: 100%;
     left: 0;
     right: 0;
-    text-align: center;
-    line-height: 90vh;
-    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .campaign-explorer-home {
@@ -60,4 +60,26 @@
 
 #learn-more-text img {
     line-height: -100px;
+}
+
+.fetch-name-home {
+    color: white;
+    width: 17ch;
+    animation: typing 2s steps(17), blink 0.5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    font-size: 3rem;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
 }
