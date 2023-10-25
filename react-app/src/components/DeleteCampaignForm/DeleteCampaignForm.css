@@ -25,6 +25,7 @@
     width: 12rem;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
+    font-family: 'Courier Prime', monospace;
 }
 
 .delete-form-buttons:hover {
@@ -32,4 +33,5 @@
     color: white;
     transition: color .5s ease-in-out;
     transition: background-color .5s ease-in-out;
+    font-family: 'Courier Prime', monospace;
 }
