@@ -26,7 +26,6 @@
 .campaign-explorer-home {
     color: black;
     background-color: white;
-    height: 100vh;
     width: 100%;
 }
 
@@ -70,6 +69,7 @@
     overflow: hidden;
     border-right: 3px solid;
     font-size: 3rem;
+    font-weight: bold;
 }
 
 @keyframes typing {
@@ -82,4 +82,120 @@
     50% {
         border-color: transparent;
     }
+}
+
+.about-us {
+    height: 100vh;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.mission-goal {
+    padding-top: 20vh;
+    padding-bottom: 20vh;
+    text-align: center;
+    font-size: 2rem;
+    padding-left: 15%;
+    padding-right: 15%;
+    border-bottom: 2px solid white;
+}
+
+.home-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+}
+
+.our-mission {
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 3rem;
+    border-right: 2px solid white;
+}
+
+.mission-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-right: 5%;
+    padding-left: 5%;
+    font-size: 1.5rem;
+}
+
+.get-started-home {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    color: black;
+    height: 40vh;
+    border-bottom: 2px solid black
+}
+
+.started-tiles {
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 2rem;
+    text-align: center;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+.tiles2 {
+    border: none;
+}
+
+.tiles-number {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 6rem;
+    width: 6rem;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+
+.home-buttons-cont {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 80%;
+}
+
+.create-campaign-butt2 {
+    margin-right: 1rem;
+    background: transparent;
+    border: none;
+    color: black;
+    text-transform: uppercase;
+    padding: 0.3rem;
+    border: 2px solid black;
+    font-family: 'Courier Prime', monospace;
+    height: 3rem;
+}
+
+.create-campaign-butt2:hover {
+    border: 2px solid white;
+    background-color: black;
+    color: white;
+    transition: background-color .5s ease-in-out;
+    transition: color .5s ease-in-out;
+    font-family: 'Courier Prime', monospace;
 }
