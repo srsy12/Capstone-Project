@@ -44,4 +44,3 @@ Our mission is to help people fund their ideas when they may not otherwise have 
 
 ## Schema
 ![Fetch Schema (2)](https://github.com/srsy12/Capstone-Project/assets/107436602/48c95730-2468-4f7b-86ae-fc45e726b964)
-
