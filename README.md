@@ -1,5 +1,5 @@
 # FETCH
-This is Fetch, a website where users can bothn fund projects that catch their eye, as well as create their own passion projects in hopes of making their dreams a reality.
+This is Fetch, a website where users can both fund projects that catch their eye, as well as create their own passion projects in hopes of making their dreams a reality.
 
 ## Introduction
 Our mission is to help people fund their ideas when they may not otherwise have the fiscal means to do so. Supporters of said projects receive rewards and benefits according to the level of their support, resulting in a win-win situation for everyone involved!
