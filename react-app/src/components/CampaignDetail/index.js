@@ -69,7 +69,7 @@ function CampaignDetailPage() {
                         {campaign?.description}
                     </div>
                 </div>
-                {sortedValues?.length > 0 && (
+                {campaign?.rewards.length > 0 && sortedValues?.length > 0 && (
                     <div className="rewards-container">
                         {sortedValues?.map((reward) => (
                             <div className="reward-cards">
@@ -80,7 +80,7 @@ function CampaignDetailPage() {
                                         <button className="btn btn1" onClick={() => history.push(`/rewards/update/${reward.id}`)}>Update Reward Tier</button>
                                         <OpenModalButton
                                             buttonText="Delete Reward Tier"
-                                            modalComponent={<DeleteRewardForm rewardId={reward.id} campaignId={campaignId} userId={sessionUser?.id} />}
+                                            modalComponent={<DeleteRewardForm rewardId={reward.id} campaignId={campaignId} />}
                                         />
                                     </div>
                                 )}
