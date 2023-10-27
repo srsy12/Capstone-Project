@@ -1,18 +1,27 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { deleteReward, singleReward } from "../../store/rewards";
+import { deleteSupport, deleteReward, singleReward } from "../../store/rewards";
 import { getOneCampaign } from "../../store/campaigns";
 import { useModal } from "../../context/Modal";
 import "./DeleteRewardForm.css"
 
 
-const DeleteRewardForm = ({ rewardId, campaignId }) => {
+const DeleteRewardForm = ({ rewardId, campaignId, userId }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal()
+    const reward = useSelector((state) => state?.rewards[rewardId])
+
 
     const handleDelete = () => {
+        let supportsArr = reward?.supports_full
+        let support;
+        for (let el in supportsArr) {
+            support = supportsArr[el]
+            dispatch(deleteSupport(support?.id))
+        }
+
         const deletedReward = dispatch(deleteReward(rewardId))
         if (deletedReward) {
             closeModal()

@@ -35,7 +35,7 @@ function SignupFormModal() {
 				<h1>Welcome to Fetch!</h1>
 				<ul>
 					{errors.map((error, idx) => (
-						<li className="error-message validation-err" key={idx}>{error}</li>
+						<div className="error-message validation-err" key={idx}> * {error}</div>
 					))}
 				</ul>
 				<label className="email-field">
