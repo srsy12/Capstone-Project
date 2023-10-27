@@ -45,13 +45,16 @@ function ProfileButton({ user }) {
   return (
     <>
       <button className="nav-profile-butt" onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+        <ion-icon name="person-circle-sharp"></ion-icon>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
             <li>{user.username}</li>
             <li>{user.email}</li>
+            <li>
+              <button className="login-form-button" onClick={() => history.push(`/user`)}>My Page</button>
+            </li>
             <li>
               <button className="login-form-button" onClick={handleLogout}>Log Out</button>
             </li>

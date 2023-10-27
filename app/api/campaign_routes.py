@@ -125,3 +125,13 @@ def search_filter():
             results.append(campaign.no_description())
 
     return results
+
+
+@campaign_routes.route("/user/<int:id>")
+@login_required
+def my_campaigns(id):
+    campaigns = Campaign.query.filter(Campaign.owner_id == current_user.id)
+    results = []
+    for campaign in campaigns:
+        results.append(campaign.no_description())
+    return results

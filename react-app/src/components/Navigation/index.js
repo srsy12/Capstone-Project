@@ -34,8 +34,8 @@ function Navigation({ isLoaded }) {
 							onChange={e => setQuery(e.target.value)}
 							placeholder='Search'
 						/>
-						<button type="submit" class="search-submit-button">
-							<i class='fa fa-search'></i>
+						<button type="submit" className="search-submit-button">
+							<ion-icon name="search-sharp"></ion-icon>
 						</button>
 					</form>
 					{sessionUser && (
