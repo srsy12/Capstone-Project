@@ -17,7 +17,9 @@ class User(db.Model, UserMixin):
     campaigns = db.relationship(
         "Campaign", back_populates="owner", cascade="all, delete-orphan"
     )
-    supports = db.relationship("Support", back_populates="user")
+    supports = db.relationship(
+        "Support", back_populates="user", cascade="all, delete-orphan"
+    )
 
     @property
     def password(self):

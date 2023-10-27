@@ -19,8 +19,12 @@ class Campaign(db.Model):
     goal = db.Column(db.Integer, nullable=False)
 
     owner = db.relationship("User", back_populates="campaigns")
-    rewards = db.relationship("Reward", back_populates="campaign")
-    supports = db.relationship("Support", back_populates="campaign")
+    rewards = db.relationship(
+        "Reward", back_populates="campaign", cascade="all, delete-orphan"
+    )
+    supports = db.relationship(
+        "Support", back_populates="campaign", cascade="all, delete-orphan"
+    )
 
     def no_description(self):
         return {

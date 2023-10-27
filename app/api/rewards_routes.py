@@ -156,10 +156,8 @@ def cancel_support(id):
     if support:
         reward = Reward.query.get(support.reward_id)
         campaign = Campaign.query.get(support.campaign_id)
-        if support.user_id == current_user.id:
-            campaign.current_funds -= reward.price
-            db.session.delete(support)
-            db.session.commit()
-            return {"message": "Support successfully deleted"}
-        return {"errors": "You must own this support to complete this action!"}, 401
+        campaign.current_funds -= reward.price
+        db.session.delete(support)
+        db.session.commit()
+        return {"message": "Support successfully deleted"}
     return {"error": "Support not found"}, 404

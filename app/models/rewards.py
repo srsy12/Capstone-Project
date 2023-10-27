@@ -16,7 +16,9 @@ class Reward(db.Model):
     description = db.Column(db.Text, nullable=False)
 
     campaign = db.relationship("Campaign", back_populates="rewards")
-    supports = db.relationship("Support", back_populates="reward")
+    supports = db.relationship(
+        "Support", back_populates="reward", cascade="all, delete-orphan"
+    )
 
     def to_dict(self):
         supports_list = [support.supporter_id()["user_id"] for support in self.supports]
