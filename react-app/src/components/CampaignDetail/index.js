@@ -69,7 +69,7 @@ function CampaignDetailPage() {
                         {campaign?.description}
                     </div>
                 </div>
-                {sortedValues?.length > 0 && (
+                {campaign?.rewards.length > 0 && sortedValues?.length > 0 && (
                     <div className="rewards-container">
                         {sortedValues?.map((reward) => (
                             <div className="reward-cards">
