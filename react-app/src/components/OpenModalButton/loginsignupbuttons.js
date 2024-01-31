@@ -10,6 +10,9 @@ function OpenModalButton2({
     const { setModalContent, setOnModalClose } = useModal();
 
     const onClick = () => {
+        const ulDiv = document.getElementsByClassName("profile-dropdown")[0];
+        const ulClasses = ulDiv.classList;
+        ulClasses.toggle("hidden");
         if (onModalClose) setOnModalClose(onModalClose);
         setModalContent(modalComponent);
         if (onButtonClick) onButtonClick();

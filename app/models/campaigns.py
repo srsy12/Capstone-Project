@@ -9,7 +9,6 @@ class Campaign(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
-    image_url = db.Column(db.String, nullable=False)
     state = db.Column(db.String, nullable=False)
     country = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
@@ -19,6 +18,9 @@ class Campaign(db.Model):
     goal = db.Column(db.Integer, nullable=False)
 
     owner = db.relationship("User", back_populates="campaigns")
+    campaign_images = db.relationship(
+        "CampaignImage", back_populates="campaign_img", cascade="all, delete-orphan"
+    )
     rewards = db.relationship(
         "Reward", back_populates="campaign", cascade="all, delete-orphan"
     )
@@ -27,12 +29,13 @@ class Campaign(db.Model):
     )
 
     def no_description(self):
+        image = [image.to_dict() for image in self.campaign_images]
         return {
             "id": self.id,
             "owner_id": self.owner_id,
             "owner_name": self.owner.to_dict()["username"],
             "owner": self.owner.to_dict(),
-            "image_url": self.image_url,
+            "image_url": image,
             "state": self.state,
             "country": self.country,
             "name": self.name,
@@ -42,9 +45,10 @@ class Campaign(db.Model):
         }
 
     def no_owner(self):
+        image = [image.to_dict() for image in self.campaign_images]
         return {
             "id": self.id,
-            "image_url": self.image_url,
+            "image_url": image,
             "state": self.state,
             "country": self.country,
             "name": self.name,
@@ -54,12 +58,13 @@ class Campaign(db.Model):
         }
 
     def no_rewards(self):
+        image = [image.to_dict() for image in self.campaign_images]
         return {
             "id": self.id,
             "owner_id": self.owner_id,
             "owner_name": self.owner.to_dict()["username"],
             "owner": self.owner.to_dict(),
-            "image_url": self.image_url,
+            "image_url": image,
             "state": self.state,
             "country": self.country,
             "name": self.name,
@@ -72,12 +77,13 @@ class Campaign(db.Model):
     def to_dict(self):
         rewards_list = [reward.to_dict() for reward in self.rewards]
         supports_list = [support.supporter_id()["user_id"] for support in self.supports]
+        image = [image.to_dict() for image in self.campaign_images]
         return {
             "id": self.id,
             "owner_id": self.owner_id,
             "owner_name": self.owner.to_dict()["username"],
             "owner": self.owner.to_dict(),
-            "image_url": self.image_url,
+            "image_url": image,
             "state": self.state,
             "country": self.country,
             "name": self.name,

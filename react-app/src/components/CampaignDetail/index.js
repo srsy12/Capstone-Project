@@ -21,6 +21,7 @@ function CampaignDetailPage() {
     useEffect(() => {
         dispatch(getOneCampaign(campaignId));
         dispatch(getOneRewards(campaignId))
+        console.log(campaign)
     }, [dispatch, campaignId]);
 
     const rewardsArr = Object.values(rewards)
@@ -44,7 +45,7 @@ function CampaignDetailPage() {
     return (
         <div className="home-page-content">
             <div id="details-img-container">
-                <img src={campaign?.image_url} />
+                <img src={campaign?.image_url[0].url} />
             </div>
             <div id="details-content">
                 <div id="details-header-info">

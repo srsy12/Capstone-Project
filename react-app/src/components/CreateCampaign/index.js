@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
-import { createCampaign } from "../../store/campaigns";
+import { createCampaign, createCampaignImage } from "../../store/campaigns";
 import { useLocation } from 'react-router-dom'
 import "./CreateCampaign.css"
 
@@ -13,7 +13,7 @@ function CreateCampaignForm() {
     const [state, setState] = useState("");
     const [name, setName] = useState("");
     const [goal, setGoal] = useState("");
-    const [image_url, setImageUrl] = useState("");
+    const [image, setImage] = useState("");
     const [tagline, setTagline] = useState("");
     const [description, setDescription] = useState("")
     const [errors, setErrors] = useState({});
@@ -24,7 +24,6 @@ function CreateCampaignForm() {
     const updateCountry = (e) => setCountry(e.target.value)
     const updateName = (e) => setName(e.target.value);
     const updateGoal = (e) => setGoal(e.target.value);
-    const updateUrl = (e) => setImageUrl(e.target.value);
     const updateTagline = (e) => setTagline(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
 
@@ -60,20 +59,16 @@ function CreateCampaignForm() {
         if (!description) {
             errors.description = "Description is required"
         }
-        if (!image_url) {
+        if (!image) {
             errors.urls = "Image is required"
-        } else {
-            if (!image_url.match(/\.(png|jpe?g)$/)) {
-                errors.urls = "Image url must end in a .png, .jpg, or .jpeg"
-            }
         }
+
         setErrors(errors)
 
         if (Object.values(errors).length === 0) {
             setValidSubmit(true);
 
             const newCampaign = {
-                image_url,
                 state,
                 country,
                 name,
@@ -85,6 +80,11 @@ function CreateCampaignForm() {
             try {
                 const createdCampaign = await dispatch(createCampaign(newCampaign));
                 if (createdCampaign) {
+                    if (image) {
+                        const formData = new FormData();
+                        formData.append("url", image)
+                        await dispatch(createCampaignImage(formData, createdCampaign.id))
+                    }
                     history.push(`/campaigns/${createdCampaign.id}/rewards/new`);
                 }
             } catch (error) {
@@ -166,12 +166,22 @@ function CreateCampaignForm() {
                         </div>
                         <div className="form-group">
                             <label htmlFor="image">Image {errors.urls && <p className="error-message">* {errors.urls}</p>}</label>
-                            <input
+                            {/* <input
                                 type="text"
                                 placeholder="Enter an Image URL"
                                 value={image_url}
                                 onChange={updateUrl}
                                 className={`input-field ${errors.urls ? 'error' : ''}`}
+                            /> */}
+                            <input
+                                type="file"
+                                accept="image/png, image/jpeg, image/jpg"
+                                placeholder="Image URL"
+                                onChange={(e) => {
+                                    setImage(e.target.files[0]);
+                                }}
+                                className="create-image-input-create"
+                            // multiple="true"
                             />
                         </div>
                     </div>

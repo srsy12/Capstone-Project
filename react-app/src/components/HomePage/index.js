@@ -100,7 +100,7 @@ function HomePage() {
                                     </div>
                                 </div>
                                 <div id="campaign-picture-preview2">
-                                    <img src={campaign?.image_url} />
+                                    <img src={campaign?.image_url[0]?.url} />
                                 </div>
                             </div>
                         </a>

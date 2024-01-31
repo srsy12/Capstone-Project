@@ -3,6 +3,8 @@ const CAMPAIGN_DETAIL = "CAMPAIGN_DETAIL"
 const CREATE_CAMPAIGN = "CREATE_CAMPAIGN"
 const UPDATE_CAMPAIGN = "UPDATE_CAMPAIGN"
 const DELETE_CAMPAIGN = "DELETE_CAMPAIGN"
+const CREATE_CAMPAIGN_IMG = "CREATE_CAMPAIGN_IMG"
+const DELETE_CAMPAIGN_IMG = "DELETE_CAMPAIGN_IMG"
 
 const loadCampaigns = (campaigns) => ({
     type: LOAD_CAMPAIGNS,
@@ -27,6 +29,16 @@ const updateCampaignAction = (campaignDetails) => ({
 const deleteCampaignAction = (campaignId) => ({
     type: DELETE_CAMPAIGN,
     campaignId
+})
+
+const createImageAction = (image) => ({
+    type: CREATE_CAMPAIGN_IMG,
+    image
+})
+
+const deleteImageAction = (imageId) => ({
+    type: DELETE_CAMPAIGN_IMG,
+    imageId
 })
 
 export const searchCampaigns = (query) => async (dispatch) => {
@@ -71,11 +83,13 @@ export const createCampaign = (campaignData) => async (dispatch) => {
     });
 
     if (res.ok) {
+        console.log(res)
         const newCampaign = await res.json();
         dispatch(createCampaignAction(newCampaign));
         return newCampaign;
     }
 };
+
 
 export const updateCampaign = (campaignData, campaignId) => async (dispatch) => {
     const res = await fetch(`/api/campaigns/update/${campaignId}`, {
@@ -102,6 +116,30 @@ export const deleteCampaign = (campaignId) => async (dispatch) => {
     }
 }
 
+export const createCampaignImage = (image, campaignId) => async (dispatch) => {
+    const res = await fetch(`/api/campaigns/${campaignId}/image/new`, {
+        method: "POST",
+        body: image,
+    });
+
+    if (res.ok) {
+        const result = await res.json();
+        await dispatch(createImageAction(result));
+    } else {
+        console.log("There was an error making your post!")
+    }
+}
+
+export const deleteCampaignImage = (imageId) => async (dispatch) => {
+    const res = await fetch(
+        `/api/campaigns/image/${imageId}/delete`,
+        {
+            method: "DELETE",
+        }
+    );
+    dispatch(deleteImageAction(imageId));
+    return res;
+}
 
 
 const campaignReducer = (state = {}, action) => {

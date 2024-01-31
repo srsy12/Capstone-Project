@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom"
-import { updateCampaign, getOneCampaign } from "../../store/campaigns";
+import { useModal } from "../../context/Modal"
+import { updateCampaign, getOneCampaign, deleteCampaignImage, createCampaignImage } from "../../store/campaigns";
 import { useLocation } from 'react-router-dom'
 import "../CreateCampaign/CreateCampaign.css"
 
@@ -15,14 +16,18 @@ function UpdateCampaignForm() {
     const [state, setState] = useState(campaign?.state);
     const [name, setName] = useState(campaign?.name);
     const [goal, setGoal] = useState(campaign?.goal);
-    const [image_url, setImageUrl] = useState(campaign?.image_url);
+    const [url, setUrl] = useState(campaign?.image_url[0]?.url);
+    const [image, setImage] = useState(false)
     const [tagline, setTagline] = useState(campaign?.tagline);
     const [description, setDescription] = useState(campaign?.description)
     const [errors, setErrors] = useState({});
     const [validSubmit, setValidSubmit] = useState(false);
+    const [changed, setChanged] = useState(false)
+    const { closeModal } = useModal()
 
     useEffect(() => {
         dispatch(getOneCampaign(campaignId));
+        console.log(url)
     }, [dispatch, campaignId]);
 
     useEffect(() => {
@@ -33,7 +38,6 @@ function UpdateCampaignForm() {
     const updateCountry = (e) => setCountry(e.target.value)
     const updateName = (e) => setName(e.target.value);
     const updateGoal = (e) => setGoal(e.target.value);
-    const updateUrl = (e) => setImageUrl(e.target.value);
     const updateTagline = (e) => setTagline(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
 
@@ -66,20 +70,12 @@ function UpdateCampaignForm() {
         if (!description) {
             errors.description = "Description is required"
         }
-        if (!image_url) {
-            errors.urls = "Image is required"
-        } else {
-            if (!image_url.match(/\.(png|jpe?g)$/)) {
-                errors.urls = "Image url must end in a .png, .jpg, or .jpeg"
-            }
-        }
         setErrors(errors)
 
         if (Object.values(errors).length === 0) {
             setValidSubmit(true);
 
             const newCampaign = {
-                image_url,
                 state,
                 country,
                 name,
@@ -91,8 +87,19 @@ function UpdateCampaignForm() {
             try {
                 const createdCampaign = await dispatch(updateCampaign(newCampaign, campaignId));
                 if (createdCampaign) {
-                    history.push(`/campaigns/${createdCampaign.id}`);
+                    if (image == false && changed == false) {
+                        history.push(`/campaigns/${createdCampaign.id}`);
+                    } else {
+                        const deletedImg = dispatch(deleteCampaignImage(campaign?.image_url[0].id))
+                        if (deletedImg) {
+                            const formData = new FormData();
+                            formData.append("url", image)
+                            await dispatch(createCampaignImage(formData, createdCampaign?.id))
+                        }
+                    }
                 }
+                history.push(`/campaigns/${createdCampaign.id}`);
+
             } catch (error) {
                 console.error("Campaign creation failed:", error);
 
@@ -166,11 +173,21 @@ function UpdateCampaignForm() {
                         </div>
                         <div className="form-group">
                             <label htmlFor="image">Image {errors.urls && <p className="error-message">* {errors.urls}</p>}</label>
-                            <input
+                            {/* <input
                                 type="text"
                                 value={image_url}
                                 onChange={updateUrl}
                                 className={`input-field ${errors.urls ? 'error' : ''}`}
+                            /> */}
+                            <input
+                                type="file"
+                                accept="image/png, image/jpeg, image/jpg"
+                                onChange={(e) => {
+                                    setImage(e.target.files[0]);
+                                    setChanged(true)
+                                }}
+                                className="create-image-input"
+                            // multiple="true"
                             />
                         </div>
                     </div>
