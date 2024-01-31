@@ -6,7 +6,6 @@ from sqlalchemy.sql import text
 def seed_campaigns():
     drone = Campaign(
         owner_id=1,
-        image_url="https://img.freepik.com/premium-photo/drone-dark-background_543889-296.jpg",
         state="New York",
         country="USA",
         name="Project ShadowWing",
@@ -52,7 +51,6 @@ Are you ready to be part of a technological breakthrough? Contribute to Project 
 
     taco = Campaign(
         owner_id=2,
-        image_url="https://www.webstaurantstore.com/images/products/large/234035/1362515.jpg",
         state="Texas",
         country="USA",
         name="Taco Knight",
@@ -97,7 +95,6 @@ Ready to revolutionize taco night? Back Taco Titan today, and let's make messy t
 
     cat = Campaign(
         owner_id=3,
-        image_url="https://i.pinimg.com/736x/16/0c/19/160c19f51f40baeb7e02bc8f7758720b.jpg",
         state="Seattle",
         country="USA",
         name="CatSpeak Transcend",

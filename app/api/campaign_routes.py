@@ -1,7 +1,12 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, Campaign
-from app.forms import CampaignForm
+from app.models import db, Campaign, CampaignImage
+from app.forms import CampaignForm, CampaignImageForm
 from flask_login import current_user, login_required
+from app.api.aws_routes import (
+    upload_file_to_s3,
+    get_unique_filename,
+    remove_file_from_s3,
+)
 
 campaign_routes = Blueprint("campaign", __name__)
 
@@ -46,7 +51,6 @@ def create_campaign():
     if form.validate_on_submit:
         campaign = Campaign(
             owner_id=current_user.id,
-            image_url=form.data["image_url"],
             state=form.data["state"],
             country=form.data["country"],
             name=form.data["name"],
@@ -58,6 +62,51 @@ def create_campaign():
         db.session.commit()
         return campaign.no_rewards()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+# Create a Campaign Image
+@campaign_routes.route("/<int:id>/image/new", methods=["POST"])
+@login_required
+def create_campaign_image(id):
+    campaign = Campaign.query.get(id)
+
+    if campaign:
+        if campaign.owner_id == current_user.id:
+            form = CampaignImageForm()
+            form["csrf_token"].data = request.cookies["csrf_token"]
+            if form.validate_on_submit:
+                image = form.data["url"]
+                image.filename = get_unique_filename(image.filename)
+                upload = upload_file_to_s3(image)
+                print(upload)
+
+                if "url" not in upload:
+                    return {"errors": [upload]}
+                url = upload["url"]
+                campaignImage = CampaignImage(campaign_id=id, url=url)
+                db.session.add(campaignImage)
+                db.session.commit()
+                return campaignImage.to_dict()
+            return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+        return {
+            "errors": "You must be the campaign owner to complete this action!"
+        }, 401
+    return {"errors": "This campaign does not exist!"}
+
+
+# Delete campaign Image
+@campaign_routes.route("/image/<int:id>/delete", methods=["DELETE"])
+@login_required
+def delete_campaign_image(id):
+    campaignImage = CampaignImage.query.get(id)
+
+    if campaignImage:
+        url = campaignImage.url
+        deleted = remove_file_from_s3(url)
+        print(deleted)
+        db.session.delete(campaignImage)
+        db.session.commit()
+    return {"errors": "This campaign image does not exist!"}
 
 
 # Update a Campaign
@@ -72,7 +121,6 @@ def update_campaign(id):
         if campaign.owner_id == current_user.id:
             form["csrf_token"].data = request.cookies["csrf_token"]
             if form.validate_on_submit():
-                campaign.image_url = form.data["image_url"]
                 campaign.state = form.data["state"]
                 campaign.country = form.data["country"]
                 campaign.name = form.data["name"]

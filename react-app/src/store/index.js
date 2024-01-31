@@ -5,11 +5,13 @@ import thunk from 'redux-thunk';
 import session from './session'
 import campaignReducer from './campaigns';
 import rewardReducer from './rewards';
+import allCampaignReducer from './allCampaigns';
 
 const rootReducer = combineReducers({
   session,
   campaigns: campaignReducer,
-  rewards: rewardReducer
+  rewards: rewardReducer,
+  allCampaigns: allCampaignReducer
 });
 
 

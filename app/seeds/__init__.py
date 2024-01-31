@@ -2,6 +2,7 @@ from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .campaigns import seed_campaigns, undo_campaigns
 from .rewards import seed_rewards, undo_rewards
+from .campaignImgs import seed_campaign_images, undo_campaign_images
 
 from app.models.db import db, environment, SCHEMA
 
@@ -20,9 +21,11 @@ def seed():
         # Make sure to add all your other model's undo functions below
         undo_users()
         undo_campaigns()
+        undo_campaign_images
         undo_rewards()
     seed_users()
     seed_campaigns()
+    seed_campaign_images()
     seed_rewards()
     # Add other seed functions here
 
@@ -32,5 +35,6 @@ def seed():
 def undo():
     undo_users()
     undo_campaigns()
+    undo_campaign_images()
     undo_rewards()
     # Add other undo functions here
