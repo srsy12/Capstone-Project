@@ -7,7 +7,7 @@ import "./SearchPage.css"
 
 function SearchPage() {
     const dispatch = useDispatch()
-    const campaignsObject = useSelector((state) => state.campaigns)
+    const campaignsObject = useSelector((state) => state?.campaigns)
     let { query } = useParams()
 
     useEffect(() => {
@@ -51,7 +51,7 @@ function SearchPage() {
                                     </div>
                                 </div>
                                 <div id="campaign-picture-preview2">
-                                    <img src={campaign?.image_url} />
+                                    <img src={campaign?.image_url[0].url} />
                                 </div>
                             </div>
                         </a>

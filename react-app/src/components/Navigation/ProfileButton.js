@@ -9,51 +9,46 @@ import SignupFormModal from "../SignupFormModal";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
-  const [showMenu, setShowMenu] = useState(false);
   const history = useHistory()
   const ulRef = useRef();
 
-  const openMenu = () => {
-    if (showMenu) return;
-    setShowMenu(true);
-  };
-
-  useEffect(() => {
-    if (!showMenu) return;
-
-    const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
-    };
-
-    document.addEventListener("click", closeMenu);
-
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-  const closeMenu = () => setShowMenu(false);
+  function setActiveClass(e) {
+    const ulDiv = document.getElementsByClassName("profile-dropdown")[0];
+    const ulClasses = ulDiv.classList;
+    e.preventDefault();
+    ulClasses.toggle("hidden");
+  }
 
   const handleLogout = (e) => {
+    const ulDiv = document.getElementsByClassName("profile-dropdown")[0];
+    const ulClasses = ulDiv.classList;
     e.preventDefault();
-    dispatch(logout());
-    closeMenu()
+    ulClasses.toggle("hidden");
+    dispatch(logout())
     history.push("/")
   };
+
+  const handleMyPage = (e) => {
+    const ulDiv = document.getElementsByClassName("profile-dropdown")[0];
+    const ulClasses = ulDiv.classList;
+    e.preventDefault();
+    ulClasses.toggle("hidden");
+    history.push(`/user`)
+  }
 
 
   return (
     <>
-      <button className="nav-profile-butt" onClick={openMenu}>
+      <button className="nav-profile-butt" onClick={setActiveClass}>
         <ion-icon name="person-circle-sharp"></ion-icon>
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <ul className="profile-dropdown hidden" ref={ulRef}>
         {user ? (
           <>
             <li>{user.username}</li>
             <li>{user.email}</li>
             <li>
-              <button className="login-form-button" onClick={() => history.push(`/user`)}>My Page</button>
+              <button className="login-form-button" onClick={handleMyPage}>My Page</button>
             </li>
             <li>
               <button className="login-form-button" onClick={handleLogout}>Log Out</button>
@@ -63,13 +58,11 @@ function ProfileButton({ user }) {
           <>
             <OpenModalButton2
               buttonText="Log In"
-              onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
 
             <OpenModalButton2
               buttonText="Sign Up"
-              onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
           </>
