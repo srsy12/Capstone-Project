@@ -13,6 +13,7 @@ import CreateRewardForm from "./components/CreateRewardForm";
 import UpdateRewardForm from "./components/UpdateRewardForm";
 import SearchPage from "./components/SearchPage";
 import ProfilePage from "./components/OwnedCampaignsForm";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer isLoaded={isLoaded} />
     </>
   );
 }

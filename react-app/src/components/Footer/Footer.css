@@ -1,0 +1,83 @@
+#footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(226, 226, 226);
+    padding-top: 3rem;
+}
+
+#footer a {
+    color: black;
+}
+
+.footer-button span {
+    font-family: 'Bebas Neue', sans-serif;
+    width: 50%;
+    text-decoration: none;
+
+}
+
+.github-icon {
+    font-size: 25px;
+    line-height: 60px;
+}
+
+
+#stephen-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+.footer-button {
+    margin: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.linkedin-icon {
+    font-size: 25px;
+    line-height: 60px;
+    color: #0A66C2;
+}
+
+#footer-wrapper {
+    display: flex;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+#footer-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    height: 2rem;
+
+}
+
+#link-wrapper {
+    display: flex;
+    /* height: 2.5rem; */
+}
+
+.linkedin-icon:hover {
+    font-size: 30px;
+    transition: .3s ease-in;
+}
+
+.github-icon:hover {
+    font-size: 30px;
+    transition: .3s ease-in;
+}
+
+#stephen-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    margin-bottom: 3rem;
+}
