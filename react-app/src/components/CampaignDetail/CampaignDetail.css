@@ -68,8 +68,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     border-bottom: 2px solid black;
+    margin-bottom: 1rem;
     padding-bottom: 2rem;
-    min-height: 60vh;
+    min-height: 65vh;
 }
 
 /* #details-nametag {

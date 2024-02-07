@@ -66,10 +66,10 @@ function Navigation({ isLoaded }) {
 											<img
 												id="search-img-results"
 												src={
-													campaign.image_url &&
-														campaign.image_url
+													campaign?.image_url[0]?.url &&
+														campaign?.image_url[0]?.url
 															.length > 0
-														? campaign.image_url
+														? campaign?.image_url[0]?.url
 														: "default-image-url.jpg"
 												}
 												alt={campaign.name}
